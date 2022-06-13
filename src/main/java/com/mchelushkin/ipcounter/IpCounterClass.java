@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.util.InputMismatchException;
 import java.util.Optional;
 
-import com.mchelushkin.ipcounter.ipaddressexxception.UnknownIpAddressFormatException;
+import com.mchelushkin.ipcounter.ipaddressexception.UnknownIpAddressFormatException;
 import com.mchelushkin.ipcounter.ipaddressset.IpAddressBitSet;
 import com.mchelushkin.ipcounter.ipaddressconverter.IpAddressConverterImpl;
 

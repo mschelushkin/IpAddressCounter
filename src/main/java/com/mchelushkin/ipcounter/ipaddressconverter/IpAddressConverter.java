@@ -1,6 +1,6 @@
 package com.mchelushkin.ipcounter.ipaddressconverter;
 
-import com.mchelushkin.ipcounter.ipaddressexxception.UnknownIpAddressFormatException;
+import com.mchelushkin.ipcounter.ipaddressexception.UnknownIpAddressFormatException;
 
 public interface IpAddressConverter {
 

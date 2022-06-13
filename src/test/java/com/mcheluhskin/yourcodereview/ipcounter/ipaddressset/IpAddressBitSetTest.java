@@ -5,7 +5,7 @@ import java.util.stream.Stream;
 
 import com.mchelushkin.ipcounter.ipaddressconverter.IpAddressConverter;
 import com.mchelushkin.ipcounter.ipaddressconverter.IpAddressConverterImpl;
-import com.mchelushkin.ipcounter.ipaddressexxception.UnknownIpAddressFormatException;
+import com.mchelushkin.ipcounter.ipaddressexception.UnknownIpAddressFormatException;
 import com.mchelushkin.ipcounter.ipaddressset.IpAddressBitSet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;

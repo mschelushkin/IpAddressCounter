@@ -2,7 +2,7 @@ package com.mchelushkin.ipcounter.ipaddressset;
 
 import java.util.BitSet;
 
-import com.mchelushkin.ipcounter.ipaddressexxception.UnknownIpAddressFormatException;
+import com.mchelushkin.ipcounter.ipaddressexception.UnknownIpAddressFormatException;
 import com.mchelushkin.ipcounter.ipaddressconverter.IpAddressConverter;
 
 public class IpAddressBitSet extends IpAddressSet {

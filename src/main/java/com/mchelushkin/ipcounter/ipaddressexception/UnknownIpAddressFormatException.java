@@ -1,4 +1,4 @@
-package com.mchelushkin.ipcounter.ipaddressexxception;
+package com.mchelushkin.ipcounter.ipaddressexception;
 
 public class UnknownIpAddressFormatException extends Exception {
 
