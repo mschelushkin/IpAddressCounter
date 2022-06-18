@@ -1,6 +1,6 @@
-package com.mchelushkin.ipcounter.ipaddressconverter;
+package com.mchelushkin.ipcounter.converter;
 
-import com.mchelushkin.ipcounter.ipaddressexception.UnknownIpAddressFormatException;
+import com.mchelushkin.ipcounter.exception.UnknownIpAddressFormatException;
 
 public class IpAddressConverterImpl implements IpAddressConverter {
 
@@ -8,9 +8,11 @@ public class IpAddressConverterImpl implements IpAddressConverter {
     private static final char CHAR_MIN_ALLOWED = '0';
     private static final char CHAR_MAX_ALLOWED = '9';
     private static final int DEC_BASE = 10;
+    private static final int VALID_NUMBER_OF_OCTETS = 4;
+    private static final int MAX_OCTET_NUMBER = 255;
 
     @Override
-    public long convertToLong(String ipAddress) throws UnknownIpAddressFormatException {
+    public long convertToLong(String ipAddress) {
 
         long totalNum = 0;
         int currentNum = 0;
@@ -36,14 +38,14 @@ public class IpAddressConverterImpl implements IpAddressConverter {
     }
 
     private void checkNumberOfOctets(String ipAddress, int numberOfOctets) throws UnknownIpAddressFormatException {
-        if (numberOfOctets != 4) {
+        if (numberOfOctets != VALID_NUMBER_OF_OCTETS) {
             throw new UnknownIpAddressFormatException("Unknown IpAddress format: " + ipAddress);
         }
     }
 
     private void checkCurrentNumber(String ipAddress, int currentNum, boolean lastCharIsNotNum)
             throws UnknownIpAddressFormatException {
-        if (currentNum > 255 || lastCharIsNotNum) {
+        if (currentNum > MAX_OCTET_NUMBER || lastCharIsNotNum) {
             throw new UnknownIpAddressFormatException("Unknown IpAddress format: " + ipAddress);
         }
     }

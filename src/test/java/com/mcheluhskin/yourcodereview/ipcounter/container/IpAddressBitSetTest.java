@@ -1,12 +1,11 @@
-package com.mcheluhskin.yourcodereview.ipcounter.ipaddressset;
+package com.mcheluhskin.yourcodereview.ipcounter.container;
 
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.mchelushkin.ipcounter.ipaddressconverter.IpAddressConverter;
-import com.mchelushkin.ipcounter.ipaddressconverter.IpAddressConverterImpl;
-import com.mchelushkin.ipcounter.ipaddressexception.UnknownIpAddressFormatException;
-import com.mchelushkin.ipcounter.ipaddressset.IpAddressBitSet;
+import com.mchelushkin.ipcounter.converter.IpAddressConverter;
+import com.mchelushkin.ipcounter.converter.IpAddressConverterImpl;
+import com.mchelushkin.ipcounter.container.IpAddressBitSet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -27,21 +26,21 @@ class IpAddressBitSetTest {
 
     static Stream<Arguments> paramsForConverterTest() {
         return Stream.of(
-                arguments(List.of("0.0.0.255"), 1),
-                arguments(List.of("0.0.0.0", "0.0.0.1", "0.0.0.2"), 3)
+                arguments(List.of("0.0.0.255", "255.255.255.255"), 2),
+                arguments(List.of("0.0.0.0", "0.0.0.1", "255.255.255.255", "127.255.255.255"), 4)
         );
     }
 
     static Stream<Arguments> paramsForConverterTest1() {
         return Stream.of(
-                arguments(List.of("0.0.0.255", "0.0.0.255"), 1),
-                arguments(List.of("0.0.0.0", "0.0.0.0", "0.0.0.0", "0.0.0.1"), 2)
+                arguments(List.of("0.0.0.255", "0.0.0.255", "255.255.255.255", "255.255.255.255"), 2),
+                arguments(List.of("0.0.0.0", "0.0.0.0", "0.0.0.0", "0.0.0.1", "127.255.255.255", "127.255.255.255"), 3)
         );
     }
 
     @ParameterizedTest
     @MethodSource("paramsForConverterTest")
-    void numberOfIpsIsCorrectTest(List<String> ipAddresses, long expectedAmount) throws UnknownIpAddressFormatException {
+    void numberOfIpsIsCorrectTest(List<String> ipAddresses, long expectedAmount) {
         for (String ipAddress : ipAddresses) {
             ipSet.add(ipAddress);
         }
@@ -51,7 +50,7 @@ class IpAddressBitSetTest {
 
     @ParameterizedTest
     @MethodSource("paramsForConverterTest1")
-    void numberOfIpsIsCorrectIfNonUniqueAddedTest(List<String> ipAddresses, long expectedAmount) throws UnknownIpAddressFormatException {
+    void numberOfIpsIsCorrectIfNonUniqueAddedTest(List<String> ipAddresses, long expectedAmount) {
         for (String ipAddress : ipAddresses) {
             ipSet.add(ipAddress);
         }

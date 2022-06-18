@@ -1,9 +1,8 @@
-package com.mchelushkin.ipcounter.ipaddressset;
+package com.mchelushkin.ipcounter.container;
 
 import java.util.BitSet;
 
-import com.mchelushkin.ipcounter.ipaddressexception.UnknownIpAddressFormatException;
-import com.mchelushkin.ipcounter.ipaddressconverter.IpAddressConverter;
+import com.mchelushkin.ipcounter.converter.IpAddressConverter;
 
 public class IpAddressBitSet extends IpAddressSet {
 
@@ -15,6 +14,8 @@ public class IpAddressBitSet extends IpAddressSet {
     // cause one can handle Integer.MAX_VALUE = 2^31 - 1 different values.
     // That's why I use three Bitsets with close initial sizes.
     // All sizes must be divisible by Long.SIZE because BitSet implemented with array of longs
+    // ((2^32 / 2^6) / 3) == 22369621 + 1/3 so 22369621 * 2^6 + 22369621 * 2^6 + (22369621 + 1) * 2^6 == 2 ^ 32
+    // (2^6 == Long.SIZE)
     private static final int NUMBER_COUNT = 22369621 * Long.SIZE;
 
     private final BitSet up = new BitSet(NUMBER_COUNT);
@@ -26,7 +27,7 @@ public class IpAddressBitSet extends IpAddressSet {
     }
 
     @Override
-    public void add(String ipAddress) throws UnknownIpAddressFormatException {
+    public void add(String ipAddress) {
 
         long ipAddressNumber = converter.convertToLong(ipAddress);
         if (ipAddressNumber < NUMBER_COUNT) {
@@ -34,14 +35,14 @@ public class IpAddressBitSet extends IpAddressSet {
                 up.set((int) ipAddressNumber);
             }
         } else if (ipAddressNumber < NUMBER_COUNT * 2L) {
-            int a = (int) (ipAddressNumber - NUMBER_COUNT);
-            if (!mid.get(a)) {
-                mid.set(a);
+            int offsetIpAddressNumber = (int) (ipAddressNumber - NUMBER_COUNT);
+            if (!mid.get(offsetIpAddressNumber)) {
+                mid.set(offsetIpAddressNumber);
             }
         } else {
-            int a = (int) (ipAddressNumber - NUMBER_COUNT * 2L);
-            if (!dwn.get(a)) {
-                dwn.set(a);
+            int offsetIpAddressNumber = (int) (ipAddressNumber - NUMBER_COUNT * 2L);
+            if (!dwn.get(offsetIpAddressNumber)) {
+                dwn.set(offsetIpAddressNumber);
             }
         }
     }
