@@ -31,7 +31,7 @@ class IpAddressBitSetTest {
         );
     }
 
-    static Stream<Arguments> paramsForConverterTest1() {
+    static Stream<Arguments> paramsForConverterTestWithNonUnique() {
         return Stream.of(
                 arguments(List.of("0.0.0.255", "0.0.0.255", "255.255.255.255", "255.255.255.255"), 2),
                 arguments(List.of("0.0.0.0", "0.0.0.0", "0.0.0.0", "0.0.0.1", "127.255.255.255", "127.255.255.255"), 3)
@@ -49,7 +49,7 @@ class IpAddressBitSetTest {
     }
 
     @ParameterizedTest
-    @MethodSource("paramsForConverterTest1")
+    @MethodSource("paramsForConverterTestWithNonUnique")
     void numberOfIpsIsCorrectIfNonUniqueAddedTest(List<String> ipAddresses, long expectedAmount) {
         for (String ipAddress : ipAddresses) {
             ipSet.add(ipAddress);
